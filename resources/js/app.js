@@ -2,7 +2,6 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// Vue.component('app', require('./components/app.vue').default)
 
 Vue.use(VueRouter)
 
@@ -12,15 +11,15 @@ Vue.use(VueRouter)
 
 
 import App from './components/app'
-import Home from './components/home'
+import Books from './components/books'
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
             {
             path: '/',
-            name: 'home',
-            component: Home
+            name: 'books',
+            component: Books
             },
             ]
 })
