@@ -1,42 +1,54 @@
 <template>
 <div class="container">
-<table class="table" id="books">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Author</th>
-      <th scope="col">Title</th>
-      <th scope="col">User ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="book in books">
-      <th scope="row">{{book.id}}</th>
-      <td>{{book.author}}</td>
-      <td>{{book.title}}</td>
-      <td>{{book.user_id}}</td>    
-    </tr>
-    </tbody>
-</table>
+    <div class="overflow-auto">
+   
+        <b-table
+      id="my-books"
+      :items="books"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small 
+    ></b-table>
+    
+ <b-pagination
+     v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last"
+      aria-controls="my-books"
+    ></b-pagination>
+
+<!--     <p class="mt-3">Current Page: {{ currentPage }}</p> -->
+
+    </div>
 </div>
 </template>
+
 <script>
+
 export default {
+
     data(){
         return {
-            books: []
+        perPage: 10,
+        currentPage: 1,
+        books: [] 
         }
     },
     mounted(){
-        axios.get('/api/books')
+        axios.get('/api/books?page=1')
         .then(response=> {
             this.books = response.data.data
             console.log(response)
-
-          
         })
+    },
+    computed: {
+      rows() {
+        return this.books.length
+      }
     }
 }
-
-
 </script>
